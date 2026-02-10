@@ -41,6 +41,8 @@ const legendSection = document.getElementById('legendSection');
 const calendarSection = document.getElementById('calendarSection');
 const summarySection = document.getElementById('summarySection');
 const summaryGrid = document.getElementById('summaryGrid');
+const tableSection = document.getElementById('tableSection');
+const scheduleTable = document.getElementById('scheduleTable');
 
 // ===== Initialization =====
 updateMonthDisplay();
@@ -386,14 +388,74 @@ function generate() {
 
     legendSection.style.display = 'block';
     calendarSection.style.display = 'block';
+    tableSection.style.display = 'block';
     summarySection.style.display = 'block';
 
     calendarTitle.textContent = `${state.year}년 ${state.month}월 근무 일정표`;
 
     renderCalendar(state.year, state.month, schedule);
+    renderTable(state.year, state.month, schedule);
     renderSummary(state.year, state.month, schedule);
 
     calendarSection.scrollIntoView({ behavior: 'smooth', block: 'start' });
+}
+
+// ===== Render Table (Daily List) =====
+function renderTable(year, month, schedule) {
+    const daysInMonth = new Date(year, month, 0).getDate();
+
+    let html = `
+        <thead>
+            <tr>
+                <th rowspan="2">일자</th>
+                <th rowspan="2">요일</th>
+                <th colspan="1" class="shift-header-a">A조 (07:00~15:00)</th>
+                <th colspan="1" class="shift-header-b">B조 (09:00~17:00)</th>
+                <th colspan="1" class="shift-header-c">C조 (13:00~21:00)</th>
+                <th rowspan="2" class="shift-header-off">휴무</th>
+            </tr>
+            <tr>
+                <th class="shift-header-a">근무자</th>
+                <th class="shift-header-b">근무자</th>
+                <th class="shift-header-c">근무자</th>
+            </tr>
+        </thead>
+        <tbody>
+    `;
+
+    for (let d = 1; d <= daysInMonth; d++) {
+        const dow = new Date(year, month - 1, d).getDay();
+        const ds = schedule[d];
+        let w7 = '', w9 = '', w13 = '', wOff = '';
+
+        for (let w = 0; w < 4; w++) {
+            if (w === ds.off) {
+                wOff = state.names[w];
+            } else {
+                const shiftId = ds.shifts[w];
+                if (shiftId === 7) w7 = state.names[w];
+                else if (shiftId === 9) w9 = state.names[w];
+                else if (shiftId === 13) w13 = state.names[w];
+            }
+        }
+
+        const rowClass = dow === 0 ? 'row-sunday' : dow === 6 ? 'row-saturday' : '';
+        const dayClass = dow === 0 ? 'sunday' : dow === 6 ? 'saturday' : '';
+
+        html += `
+            <tr class="${rowClass}">
+                <td class="td-date">${d}</td>
+                <td class="td-day ${dayClass}">${DAY_NAMES[dow]}</td>
+                <td class="td-shift-a">${w7}</td>
+                <td class="td-shift-b">${w9}</td>
+                <td class="td-shift-c">${w13}</td>
+                <td class="td-off">${wOff}</td>
+            </tr>
+        `;
+    }
+
+    html += '</tbody>';
+    scheduleTable.innerHTML = html;
 }
 
 // ===== Excel Export =====

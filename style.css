@@ -572,6 +572,140 @@ body {
     transition: width 0.5s ease;
 }
 
+/* ===== Table View (Daily List) ===== */
+.table-section {
+    margin-bottom: 24px;
+    animation: fadeInUp 0.5s ease 0.15s both;
+}
+
+.table-card {
+    background: var(--bg-card);
+    border: 1px solid var(--border-color);
+    border-radius: var(--radius-xl);
+    padding: 28px;
+    box-shadow: var(--shadow-card);
+    overflow-x: auto;
+}
+
+.table-title {
+    font-size: 1.1rem;
+    font-weight: 700;
+    margin-bottom: 20px;
+    text-align: center;
+    color: var(--text-primary);
+}
+
+.table-wrapper {
+    overflow-x: auto;
+}
+
+.schedule-table {
+    width: 100%;
+    border-collapse: collapse;
+    font-size: 0.88rem;
+    min-width: 700px;
+}
+
+.schedule-table thead th {
+    background: var(--bg-primary);
+    color: var(--text-secondary);
+    font-weight: 700;
+    font-size: 0.78rem;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+    padding: 12px 10px;
+    text-align: center;
+    border-bottom: 2px solid var(--border-color);
+    white-space: nowrap;
+}
+
+.schedule-table thead th.shift-header-a {
+    background: rgba(59, 130, 246, 0.08);
+    color: #2563eb;
+}
+
+.schedule-table thead th.shift-header-b {
+    background: rgba(16, 185, 129, 0.08);
+    color: #059669;
+}
+
+.schedule-table thead th.shift-header-c {
+    background: rgba(245, 158, 11, 0.08);
+    color: #d97706;
+}
+
+.schedule-table thead th.shift-header-off {
+    background: rgba(0, 0, 0, 0.03);
+    color: var(--text-muted);
+}
+
+.schedule-table tbody td {
+    padding: 10px 10px;
+    text-align: center;
+    border-bottom: 1px solid var(--border-color);
+    font-weight: 500;
+    transition: background 0.2s ease;
+}
+
+.schedule-table tbody tr:hover {
+    background: rgba(59, 130, 246, 0.03);
+}
+
+.schedule-table tbody tr.row-sunday {
+    background: rgba(239, 68, 68, 0.05);
+}
+
+.schedule-table tbody tr.row-sunday:hover {
+    background: rgba(239, 68, 68, 0.08);
+}
+
+.schedule-table tbody tr.row-saturday {
+    background: rgba(59, 130, 246, 0.04);
+}
+
+.schedule-table tbody tr.row-saturday:hover {
+    background: rgba(59, 130, 246, 0.07);
+}
+
+.schedule-table .td-date {
+    font-weight: 700;
+    color: var(--text-primary);
+}
+
+.schedule-table .td-day {
+    font-weight: 600;
+}
+
+.schedule-table .td-day.sunday {
+    color: var(--accent-red);
+    font-weight: 700;
+}
+
+.schedule-table .td-day.saturday {
+    color: var(--accent-blue);
+    font-weight: 700;
+}
+
+.schedule-table .td-shift-a {
+    color: #2563eb;
+    font-weight: 600;
+}
+
+.schedule-table .td-shift-b {
+    color: #059669;
+    font-weight: 600;
+}
+
+.schedule-table .td-shift-c {
+    color: #d97706;
+    font-weight: 600;
+}
+
+.schedule-table .td-off {
+    color: var(--text-muted);
+    font-style: italic;
+}
+
 /* ===== Animations ===== */
 @keyframes fadeInDown {
     from {
